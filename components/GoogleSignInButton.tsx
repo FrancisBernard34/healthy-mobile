@@ -1,52 +1,35 @@
-import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
-import { useGoogleAuth } from '../../healthy_backup/utils/auth';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React from "react";
+import GoogleIcon from "../assets/g.png";
 
-export default function GoogleSignInButton() {
-  const { promptAsync, userInfo } = useGoogleAuth();
-
-  const handleSignIn = async () => {
-    try {
-      await promptAsync();
-    } catch (error) {
-      console.error('Sign in error:', error);
-    }
-  };
-
-  if (userInfo) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}>Welcome {userInfo.name}!</Text>
-      </View>
-    );
-  }
-
+const GoogleSignInButton = () => {
   return (
-    <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-      <Text style={styles.buttonText}>Sign in with Google</Text>
+    <TouchableOpacity style={styles.googleButton}>
+      <Image source={GoogleIcon} style={styles.googleIcon} />
+      <Text style={styles.googleButtonText}>Entrar com Google</Text>
     </TouchableOpacity>
   );
-}
+};
+
+export default GoogleSignInButton;
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    alignItems: 'center',
+  googleButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#4285F4",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
   },
-  text: {
+  googleIcon: {
+    width: 24,
+    height: 24,
+    marginRight: 10,
+  },
+  googleButtonText: {
+    color: "white",
     fontSize: 16,
-    color: '#333',
-  },
-  button: {
-    backgroundColor: '#4285F4',
-    padding: 16,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginHorizontal: 20,
-  },
-  buttonText: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: '600',
   },
 });
