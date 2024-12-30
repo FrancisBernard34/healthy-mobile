@@ -3,24 +3,23 @@ import React, { useEffect } from "react";
 import GoogleIcon from "../assets/g.png";
 import * as WebBrowser from 'expo-web-browser'; 
 import * as Google from 'expo-auth-session/providers/google';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const webClientId = '1080045917844-4iphbllh99mi49m8v7465pa4aipgrncm.apps.googleusercontent.com';
-const androidClientId = '1080045917844-7dvj6fe3r0an0kolaq1271u2j1g90tvm.apps.googleusercontent.com';
+import {ANDROID_CLIENT_ID, WEB_CLIENT_ID} from '@env'
 
 WebBrowser.maybeCompleteAuthSession();
 
 const GoogleSignInButton = () => {
-  const config = {
-    webClientId,
-    androidClientId,
-  }
-
-  const [request, response, promptAsync] = Google.useAuthRequest(config);
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId: ANDROID_CLIENT_ID,
+    webClientId: WEB_CLIENT_ID,
+  });
 
   const handleToken = () => {
     if (response?.type === 'success') {
       const {authentication} = response;
       const token = authentication?.accessToken;
+      AsyncStorage.setItem('token', token);
       console.log("access token: ", token);
     }
   }

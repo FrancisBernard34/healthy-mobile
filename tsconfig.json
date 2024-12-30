@@ -1,10 +1,17 @@
 {
-  "compilerOptions": {},
-  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@env": ["./@types/env.d.ts"]
+    }
+  },
+  "extends": "expo/tsconfig.base.json",
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "@types/**/*.ts",
+    "react-native.d.ts"
   ]
 }
