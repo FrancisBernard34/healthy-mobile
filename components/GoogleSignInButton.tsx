@@ -4,6 +4,7 @@ import GoogleIcon from "../assets/g.png";
 import * as WebBrowser from 'expo-web-browser'; 
 import * as Google from 'expo-auth-session/providers/google';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from 'expo-router';
 
 import {ANDROID_CLIENT_ID, WEB_CLIENT_ID} from '@env'
 
@@ -13,6 +14,7 @@ const GoogleSignInButton = () => {
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: ANDROID_CLIENT_ID,
     webClientId: WEB_CLIENT_ID,
+    redirectUri: 'http://localhost:8081',
   });
 
   const handleToken = () => {
